@@ -8,7 +8,6 @@ export default {
   async register({ username, password, profilePicture }) {
     // TODO: get ahold of the db using readDb();
     let db = await readDb()
-    console.log(db);
 
     // TODO: check if there is an existing user with the same username
     let isFound = db.users.find((x) => x.username == username)
@@ -20,7 +19,7 @@ export default {
     //       - throw the err
     if (isFound) {
       let err = new Error("Username already taken");
-      err.code = 400
+      err.statusCode = 400
       throw err
     }
 
@@ -48,23 +47,26 @@ export default {
     let db = await readDb()
     // TODO: check the database for a user with a matching username and password
     let isFound = db.users.find((x) => x.username == username && x.password == password)
+    
     // TODO: if there is no user:
     //       - construct a new Error("Invalid username or password");
     //       - set the statusCode of that error object to 401
     //       - throw the err
     if (!isFound) {
+      
       let err = new Error("Invalid username or password");
-      err.code = 401
+      err.statusCode = 401
       throw err
     }
 
     // TODO: otherwise, create a login token. I'll help you out with this one:
     // Thank you
-    const token = jwt.sign({ userId: user.id, username: user.username }, JWT_SECRET, { expiresIn: "1h" })
+
+    const token = jwt.sign({ userId:  isFound.id, username:  isFound.username }, JWT_SECRET, { expiresIn: "1h" })
     // TODO:  return an object that contains 2 things:
     //  - token
     //  - user : { id: user.id, username: user.username, profilePicture: user.profilePicture }
-
+    
     return {
       token,
       user: {

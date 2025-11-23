@@ -30,7 +30,7 @@ function tipRoutes({ tipService, authService }) {
       );
     },
 
-    "/tips:post": async (req, res) => {
+    "/tips:post": async (req, res) => {      
       const user = getUserFromRequest(req, res);
       if (!user) return;
 

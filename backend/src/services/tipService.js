@@ -31,7 +31,7 @@ export default {
     // TODO: find a tip in the db whose id & userId matches the incoming id & userId
     let tipIndex = db.tips.findIndex((x) => x.id == id && x.userId == userId)
     // TODO: if there is no matching tip, return false.
-    if (tipIndex) {
+    if (tipIndex != -1) {
       db.tips[tipIndex].title = title
 
       await writeDb(db)
@@ -52,7 +52,7 @@ export default {
     let tipIndex = db.tips.findIndex((x) => x.id == id && x.userId == userId)
 
     // TODO: if there is no index (-1), return false.
-    if (tipIndex) {
+    if (tipIndex != -1) {
       db.tips.splice(tipIndex, 1)
       await writeDb(db)
       return true

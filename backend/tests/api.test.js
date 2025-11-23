@@ -83,6 +83,8 @@ test("auth: login returns token", async () => {
     password: "secret",
   });
 
+  
+
   assert.equal(res.status, 200);
   assert.ok(res.body.token);
   assert.ok(res.body.user);
@@ -146,7 +148,7 @@ test("tips: create and list tips for logged-in user", async () => {
     { title: "Use const where possible" },
     token
   );
-
+  
   assert.equal(createRes.status, 201);
   assert.ok(createRes.body.id);
 
